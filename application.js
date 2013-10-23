@@ -2,6 +2,9 @@ function Die() {
   this.faceValue = 0
 }
 
+Die.prototype.roll = function (){
+  this.faceValue = Math.floor((Math.random()*6)+1);
+}
 
 
 $(document).ready(function() {
@@ -24,10 +27,13 @@ $(document).ready(function() {
     },
 
     rollDice: function() {
-      var value = Math.floor((Math.random()*6)+1);
       console.log(this);
-      $.each(this.dice, this.displayDie(value))
+      $.each(this.dice, function(index, die){
+        die.roll();
+      });
+      this.renderDice();
     }
+  }
 
 
   $('#roller button.add').on('click', function() {
@@ -35,11 +41,12 @@ $(document).ready(function() {
   });
 
   $('#roller button.roll').on('click', function() {
-    DieHandler.rollDice()
+    DieHandler.rollDice();
+  });
 
   //   $('.die').each(function(k, die) {
   //     var value = Math.floor((Math.random()*6)+1);
   //     $(die).text(value);
   //   });
-  });
+
 });
